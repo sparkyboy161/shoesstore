@@ -6,32 +6,34 @@ import "./App.css";
 
 import Home from "./views/Home";
 import Marketplace from "./views/Marketplace";
-import HorizontalMenu from "./components/Navigation/HorizontalMenu";
+import SideBar from "./components/Navigation/SideBar";
+import MarketplaceDetail from "./views/MarketplaceDetail";
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Header, Footer, Content } = Layout;
 
 const App = () => (
-  <Layout class="container">
-    <Header>
-      <HorizontalMenu />
-    </Header>
-    <Layout>
-      <Sider>Sider</Sider>
-      <Content>Content</Content>
+  <Router>
+    <Layout style={{height:"100vh"}}>
+        <SideBar />
+      <Layout>
+        <Header></Header>
+        <Content>
+          <Switch>
+            <Route path="/marketplace" exact>
+              <Marketplace />
+            </Route>
+            <Route path="/marketplace/:place">
+              <MarketplaceDetail />
+            </Route>
+            <Route path="/" exact>
+              <Home />
+            </Route>
+          </Switch>
+        </Content>
+        <Footer>Footer</Footer>
+      </Layout>
     </Layout>
-    <Footer>Footer</Footer>
-
-    <Router>
-      <Switch>
-        <Route path="/marketplace" exact>
-          <Marketplace />
-        </Route>
-        <Route path="/" exact>
-          <Home />
-        </Route>
-      </Switch>
-    </Router>
-  </Layout>
+  </Router>
 );
 
 export default App;
