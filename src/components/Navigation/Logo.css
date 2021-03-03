@@ -1,0 +1,20 @@
+.logo-image__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  padding: 0 10px;
+  height: 60px;
+}
+
+.logo-image {
+  width: 60px;
+  height: 60px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.logo-title {
+  justify-content: start;
+  margin-left: 10px;
+}

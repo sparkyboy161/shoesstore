@@ -3,9 +3,8 @@ import { Layout, Menu } from "antd";
 import { HomeOutlined, ShopOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
-import logoImage from "../../assets/images/logo.png";
-
 import "./SideBar.css";
+import Logo from "./Logo";
 
 const { Sider } = Layout;
 
@@ -24,14 +23,9 @@ const SideBar = ({ collapsed }) => {
         left: 0,
       }}
     >
-      <div className="logo-image__container">
-        <img src={logoImage} className="logo-image" />
-        {!collapsed && (
-          <span style={{ textTransform: "capitalize" }}>tiệm giày của Huy</span>
-        )}
-      </div>
-      <Menu theme="dark" mode="inline">
-        <Menu.Item key="1" icon={<HomeOutlined />}>
+      <Logo collapsed={collapsed}/>
+      <Menu theme="dark" mode="inline" className="menu__container">
+        <Menu.Item key="home" icon={<HomeOutlined />}>
           <Link to="/">Home</Link>
         </Menu.Item>
         <Menu.SubMenu
