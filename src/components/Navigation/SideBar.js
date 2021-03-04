@@ -26,26 +26,11 @@ const SideBar = ({ collapsed }) => {
       <Logo collapsed={collapsed}/>
       <Menu theme="dark" mode="inline" className="menu__container">
         <Menu.Item key="home" icon={<HomeOutlined />}>
-          <Link to="/admin/">Home</Link>
+          <Link to="/admin">Home</Link>
         </Menu.Item>
-        <Menu.SubMenu
-          key="marketplace"
-          icon={<ShopOutlined />}
-          title="Marketplace"
-        >
-          <Menu.Item key="Monokabu">
-            <Link to="/admin/marketplace/monokabu">Monokabu</Link>
-          </Menu.Item>
-          <Menu.Item key="SnkrDunk">
-            <Link to="/admin/marketplace/snkrdunk">SnkrDunk</Link>
-          </Menu.Item>
-          <Menu.Item key="GOAT">
-            <Link to="/admin/marketplace/goat">GOAT</Link>
-          </Menu.Item>
-          <Menu.Item key="Adidas JP">
-            <Link to="/admin/marketplace/adidas">Adidas JP</Link>
-          </Menu.Item>
-        </Menu.SubMenu>
+        <Menu.Item key="marketplace" icon={<ShopOutlined />}>
+          <Link to="/marketplace">Marketplace</Link>
+        </Menu.Item>
         <Menu.Item key="config" icon={<SettingOutlined />}>
           <Link to="/admin/config">Config</Link>
         </Menu.Item>
