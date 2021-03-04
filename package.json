@@ -10,6 +10,7 @@
     "antd": "^4.13.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.21.0",
+    "firebase": "^8.2.9",
     "prettier": "^2.2.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
