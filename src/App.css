@@ -1,3 +1,28 @@
-.container{
-    height: 100vh !important;
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Lato", sans-serif;
 }
+
+.home,
+.marketplace,
+.products,
+.team,
+.reports {
+  display: flex;
+  height: 90vh;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+.collapse-icon__container {
+  margin-left: -3%;
+  display: flex;
+  align-items: center;
+}
+
+

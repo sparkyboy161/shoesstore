@@ -1,37 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 import { Layout } from "antd";
+
 
 import "./App.css";
 
 import Home from "./views/Home";
 import Marketplace from "./views/Marketplace";
-import HorizontalMenu from "./components/Navigation/HorizontalMenu";
+import SideBar from "./components/Navigation/SideBar";
+import MarketplaceDetail from "./views/MarketplaceDetail";
+import CustomHeader from "./components/Header/CustomHeader";
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Footer, Content } = Layout;
 
-const App = () => (
-  <Layout class="container">
-    <Header>
-      <HorizontalMenu />
-    </Header>
-    <Layout>
-      <Sider>Sider</Sider>
-      <Content>Content</Content>
-    </Layout>
-    <Footer>Footer</Footer>
+const App = () => {
+  const [collapsed, setCollapsed] = useState(true);
 
+  const handleCollapse = () => {
+    setCollapsed(!collapsed);
+  };
+
+  return (
     <Router>
-      <Switch>
-        <Route path="/marketplace" exact>
-          <Marketplace />
-        </Route>
-        <Route path="/" exact>
-          <Home />
-        </Route>
-      </Switch>
+      <Layout style={{ height: "100vh" }}>
+        <SideBar collapsed={collapsed} handleCollapse={handleCollapse} />
+        <Layout>
+          <CustomHeader collapsed={collapsed} handleCollapse={handleCollapse}/>
+          <Content>
+            <Switch>
+              <Route path="/marketplace" exact>
+                <Marketplace />
+              </Route>
+              <Route path="/marketplace/:place">
+                <MarketplaceDetail />
+              </Route>
+              <Route path="/" exact>
+                <Home />
+              </Route>
+            </Switch>
+          </Content>
+          <Footer>Footer</Footer>
+        </Layout>
+      </Layout>
     </Router>
-  </Layout>
-);
+  );
+};
 
 export default App;
