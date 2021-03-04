@@ -1,6 +1,6 @@
 import React from "react";
 
-import logoImage from "../../assets/images/logo.png";
+import logoImage from "../../assets/images/jordan_logo.png";
 import "./Logo.css";
 
 const Logo = ({ collapsed }) => {
