@@ -1,0 +1,8 @@
+.config__container {
+  display: flex;
+  row-gap: 0px;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  margin-top: 5%;
+}
