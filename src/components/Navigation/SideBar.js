@@ -34,16 +34,16 @@ const SideBar = ({ collapsed }) => {
           title="Marketplace"
         >
           <Menu.Item key="Monokabu">
-            <Link to="/marketplace/monokabu">Monokabu</Link>
+            <Link to="/admin/marketplace/monokabu">Monokabu</Link>
           </Menu.Item>
           <Menu.Item key="SnkrDunk">
-            <Link to="/marketplace/snkrdunk">SnkrDunk</Link>
+            <Link to="/admin/marketplace/snkrdunk">SnkrDunk</Link>
           </Menu.Item>
           <Menu.Item key="GOAT">
-            <Link to="/marketplace/goat">GOAT</Link>
+            <Link to="/admin/marketplace/goat">GOAT</Link>
           </Menu.Item>
           <Menu.Item key="Adidas JP">
-            <Link to="/marketplace/adidas">Adidas JP</Link>
+            <Link to="/admin/marketplace/adidas">Adidas JP</Link>
           </Menu.Item>
         </Menu.SubMenu>
       </Menu>
