@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Switch } from "react-router-dom";
 
 import { Layout } from "antd";
 
-
 import "./App.css";
 
 import AdminRoute from "./routes/AdminRoute";
@@ -25,10 +24,10 @@ const App = () => {
       <Layout style={{ height: "100vh" }}>
         <SideBar collapsed={collapsed} handleCollapse={handleCollapse} />
         <Layout>
-          <CustomHeader collapsed={collapsed} handleCollapse={handleCollapse}/>
+          <CustomHeader collapsed={collapsed} handleCollapse={handleCollapse} />
           <Content>
             <Switch>
-              <AdminRoute/>
+              <AdminRoute />
             </Switch>
           </Content>
           <Footer>Footer</Footer>
