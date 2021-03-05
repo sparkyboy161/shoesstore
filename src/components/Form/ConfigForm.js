@@ -1,6 +1,5 @@
 import React from "react";
-import { Form, InputNumber, Select, Button, Input } from "antd";
-// import { configValidate } from "../../validators/configValidate";
+import { Form, InputNumber, Select, Button, Input, message } from "antd";
 
 import { currencyFormatter } from "../../utils";
 import { createConfig, getConfigByRegion } from "../../services/firebase/config";
@@ -32,8 +31,16 @@ const ConfigForm = () => {
     form.resetFields();
   };
 
-  const onFinish = (values) => {
-    createConfig(values);
+  const onFinish = async (values) => {
+    const key = "createConfig";
+    message.loading({ content: "Đợi tí nào...", key });
+    const res = await createConfig(values);
+    console.log('res: ', res);
+    if (res.status === "error") {
+      message.error({ content: res.message, key, duration: 3 });
+    } else {
+      message.success({ content: res.message, key, duration: 3 });
+    }
   };
 
   return (

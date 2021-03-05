@@ -1,14 +1,38 @@
 import { db } from "../../Firebase";
 
-const configCollection = db.collection("config");
+const configRef = db.collection("config");
 
-export function createConfig(config) {
-    configCollection.doc().set(config);
+async function createConfig(config) {
+  const snapshot = await configRef.where("region", "==", config.region).get();
+  if (!snapshot.empty) {
+    const snapshotData = snapshot.docs[0].data();
+    if (
+      snapshotData.exchangeRate === config.exchangeRate &&
+      snapshotData.shipFee === config.shipFee
+    ) {
+      return {
+        status: "error",
+        message: `Config ${config.region} bị trùng`,
+      };
+    } else {
+      configRef.doc().set(config);
+      return {
+        status: "success",
+        message: "Chỉnh sửa thành công",
+      };
+    }
+  } else {
+    configRef.doc().set(config);
+    return {
+      status: "success",
+      message: "Thành công",
+    };
+  }
 }
 
-export async function getConfigByRegion(region) {
+async function getConfigByRegion(region) {
   return new Promise((res, rej) => {
-    configCollection
+    configRef
       .where("region", "==", region)
       .get()
       .then((querySnapshot) => {
@@ -23,4 +47,9 @@ export async function getConfigByRegion(region) {
         rej(err);
       });
   });
+}
+
+export {
+  createConfig,
+  getConfigByRegion
 }
