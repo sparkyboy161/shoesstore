@@ -1,6 +1,6 @@
 import React from "react";
 import { Layout, Menu } from "antd";
-import { HomeOutlined, ShopOutlined, SettingOutlined } from "@ant-design/icons";
+import { HomeOutlined, CrownOutlined , SettingOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
 import "./SideBar.css";
@@ -28,8 +28,8 @@ const SideBar = ({ collapsed }) => {
         <Menu.Item key="home" icon={<HomeOutlined />}>
           <Link to="/admin">Home</Link>
         </Menu.Item>
-        <Menu.Item key="marketplace" icon={<ShopOutlined />}>
-          <Link to="/marketplace">Marketplace</Link>
+        <Menu.Item key="shoes" icon={<CrownOutlined />}>
+          <Link to="/admin/shoes">Shoes</Link>
         </Menu.Item>
         <Menu.Item key="config" icon={<SettingOutlined />}>
           <Link to="/admin/config">Config</Link>
