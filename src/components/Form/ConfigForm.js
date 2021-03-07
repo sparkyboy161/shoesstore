@@ -35,7 +35,6 @@ const ConfigForm = () => {
     const key = "createConfig";
     message.loading({ content: "Đợi tí nào...", key });
     const res = await createConfig(values);
-    console.log('res: ', res);
     if (res.status === "error") {
       message.error({ content: res.message, key, duration: 3 });
     } else {
@@ -58,10 +57,10 @@ const ConfigForm = () => {
           allowClear
           rules={[{ required: true }]}
         >
-          <Option value="jp">Japan</Option>
-          <Option value="us">US</Option>
-          <Option value="kr">Korean</Option>
-          <Option value="cny">China</Option>
+          <Option value="jp">{"Nhật Bản"}</Option>
+          <Option value="us">{"Mỹ"}</Option>
+          <Option value="kr">{"Hàn Quốc"}</Option>
+          <Option value="cny">{"Trung Quốc"}</Option>
         </Select>
       </Form.Item>
       <Form.Item

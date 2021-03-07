@@ -15,7 +15,7 @@ async function createConfig(config) {
         message: `Config ${config.region} bị trùng`,
       };
     } else {
-      configRef.doc().set(config);
+      await configRef.doc(snapshot.docs[0].id).set(config);
       return {
         status: "success",
         message: "Chỉnh sửa thành công",
