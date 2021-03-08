@@ -22,7 +22,6 @@ const UploadImage = ({ fileList, setFileList }) => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
     }
-
     setPreviewImage(file.url || file.preview);
     setPreviewVisible(true);
     setPreviewTitle(
@@ -48,7 +47,6 @@ const UploadImage = ({ fileList, setFileList }) => {
         multiple={true}
         name="file"
         customRequest={dummyRequest}
-        beforeUpload
       >
         {fileList.length >= 8 ? null : uploadButton}
       </Upload>

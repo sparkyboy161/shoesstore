@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Form, Select, Button, Input, message } from "antd";
 
+import UploadImage from "./UploadImage";
+
 import { TYPE_OF_NIKE, TYPE_OF_ADIDAS } from "../../const/shoes";
 import { createShoes } from "../../services/firebase/shoes";
 import { saveImage } from "../../services/firebase";
-import UploadImage from "./UploadImage";
+import { getBase64 } from "../../utils";
 
 const { Option } = Select;
 
@@ -56,14 +58,14 @@ const ShoesForm = () => {
       message.loading({ content: "Đang up ảnh nha...", key: "uploadimage" });
       let ctr = 0;
       fileList.forEach(async (file) => {
-        await saveImage(file, id,ctr);
+        let _file = await getBase64(file.originFileObj);
+        await saveImage(_file, id);
         ctr++;
-        if(ctr === fileList.length) {
+        if (ctr === fileList.length) {
           message.success({ content: "Up thành công", key: "uploadimage" });
         }
       });
     }
-    console.log("values: ", values);
   };
 
   return (
