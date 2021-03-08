@@ -3,6 +3,8 @@ import { Form, Select, Button, Input, message } from "antd";
 
 import { TYPE_OF_NIKE, TYPE_OF_ADIDAS } from "../../const/shoes";
 import { createShoes } from "../../services/firebase/shoes";
+import { saveImage } from "../../services/firebase";
+import UploadImage from "./UploadImage";
 
 const { Option } = Select;
 
@@ -17,6 +19,7 @@ const tailLayout = {
 const ShoesForm = () => {
   const [form] = Form.useForm();
   const [types, setTypes] = useState([]);
+  const [fileList, setFileList] = useState([]);
 
   const onBrandChange = (value) => {
     if (value === "adidas") {
@@ -30,6 +33,17 @@ const ShoesForm = () => {
     form.resetFields();
   };
 
+  const getValueFromEvent = (e) => {
+    console.log("Upload event:", e);
+    if (Array.isArray(e)) {
+      return e;
+    }
+    if ((e.fileList, length > 1)) {
+      e.fileList.shift();
+    }
+    return e && e.fileList;
+  };
+
   const onFinish = async (values) => {
     const key = "createShoes";
     message.loading({ content: "Đợi tí nào...", key });
@@ -38,7 +52,18 @@ const ShoesForm = () => {
       message.error({ content: res.message, key, duration: 3 });
     } else {
       message.success({ content: res.message, key, duration: 3 });
+      const { id } = res;
+      message.loading({ content: "Đang up ảnh nha...", key: "uploadimage" });
+      let ctr = 0;
+      fileList.forEach(async (file) => {
+        await saveImage(file, id,ctr);
+        ctr++;
+        if(ctr === fileList.length) {
+          message.success({ content: "Up thành công", key: "uploadimage" });
+        }
+      });
     }
+    console.log("values: ", values);
   };
 
   return (
@@ -90,6 +115,13 @@ const ShoesForm = () => {
               </Option>
             ))}
         </Select>
+      </Form.Item>
+      <Form.Item
+        valuePropName="fileList"
+        getValueFromEvent={getValueFromEvent}
+        label="Ảnh chi tiết"
+      >
+        <UploadImage fileList={fileList} setFileList={setFileList} />
       </Form.Item>
       <Form.Item {...tailLayout} style={{ marginLeft: "9%" }}>
         <Button type="primary" htmlType="submit" style={{ marginRight: 25 }}>
