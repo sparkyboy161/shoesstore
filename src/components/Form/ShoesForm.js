@@ -59,7 +59,7 @@ const ShoesForm = () => {
       let ctr = 0;
       fileList.forEach(async (file) => {
         let _file = await getBase64(file.originFileObj);
-        await saveImage(_file, id);
+        await saveImage('shoes', _file, id);
         ctr++;
         if (ctr === fileList.length) {
           message.success({ content: "Up thành công", key: "uploadimage" });
