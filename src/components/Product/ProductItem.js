@@ -1,21 +1,31 @@
 import React from "react";
-import { Card } from "antd";
+import { Card, Row, Typography } from "antd";
 
-const { Meta } = Card;
+import "./ProductItem.css";
+
+const { Text } = Typography;
 
 const ProductItem = () => {
   return (
     <Card
+    className="card__container"
       hoverable
-      style={{ width: 240 }}
       cover={
         <img
           alt="example"
-          src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+          className="image__container"
+          src="http://sneakernews.com/wp-content/uploads/2016/09/0901_JordanBreda.jpg"
         />
       }
     >
-      <Meta title="Europe Street beat" description="www.instagram.com" />
+      <Row>
+        <Text style={{ textAlign: "center" }} strong>
+          {"Test"}
+        </Text>
+      </Row>
+      <Row>
+        <Text type="secondary">{`$${500}`}</Text>
+      </Row>
     </Card>
   );
 };

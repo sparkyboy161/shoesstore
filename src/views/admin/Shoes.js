@@ -10,9 +10,9 @@ export default function Shoes() {
       <Button type="primary">
         <Link to="/admin/shoes/add">Add</Link>
       </Button>
-      <Row gutter={[24,16]} >
+      <Row gutter={[24,16]}  style={{height: "100%"}} justify="center">
         {test &&
-          test.map((item, index) => <Col span={6} key={index}><ProductItem test={item}  /></Col>)}
+          test.map((item, index) => <Col span={6} key={index} style={{display: 'flex', justifyContent: 'center'}}><ProductItem test={item}  /></Col>)}
       </Row>
     </Row>
   );
