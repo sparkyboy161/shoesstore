@@ -1,3 +1,4 @@
+import { create } from "./";
 import { db } from "../../Firebase";
 
 const shoesRef = db.collection("shoes");
@@ -19,13 +20,17 @@ async function createShoes(shoes) {
       message: `Model ${shoes.model} đã tồn tại`,
     };
   } else {
-    const { id } = await shoesRef.add(shoes);
+    const { id } = await create('shoes', shoes)
     return {
       status: "success",
       message: "Tạo thành công",
-      id
+      id,
     };
   }
 }
 
-export { createShoes };
+async function getShoesList() {
+  // const shoesData = await shoesRef.orderBy('create  ')
+}
+
+export { createShoes, getShoesList };

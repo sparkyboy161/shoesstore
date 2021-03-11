@@ -49,4 +49,14 @@ async function saveImage(object, file, id) {
   );
 }
 
-export { saveImage };
+async function create(collectionName, data){
+  const res = await db.collection(collectionName).add({
+    ...data,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  })
+  return res;
+}
+
+export function update(collectionName, doc)
+
+export { saveImage, create };
