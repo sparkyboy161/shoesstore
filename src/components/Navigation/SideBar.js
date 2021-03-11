@@ -3,28 +3,17 @@ import { Layout, Menu } from "antd";
 import { HomeOutlined, CrownOutlined , SettingOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
-import "./SideBar.css";
-import Logo from "./Logo";
-
 const { Sider } = Layout;
 
-const SideBar = ({ collapsed }) => {
+const SideBar = ({ collapsed, handleCollapse }) => {
   return (
     <Sider
       collapsible
       collapsed={collapsed}
-      collapsedWidth={100}
+      onCollapse={handleCollapse}
       trigger={null}
-      style={{
-        overflow: "auto",
-        height: "100vh",
-        position: "sticky",
-        top: 0,
-        left: 0,
-      }}
     >
-      <Logo collapsed={collapsed}/>
-      <Menu theme="dark" mode="inline" className="menu__container">
+      <Menu theme="dark" mode="inline" >
         <Menu.Item key="home" icon={<HomeOutlined />}>
           <Link to="/admin">Home</Link>
         </Menu.Item>
