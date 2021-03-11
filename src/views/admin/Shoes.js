@@ -1,11 +1,19 @@
-import React from 'react'
-import { Button } from 'antd'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Button, Row, Col } from "antd";
+import { Link } from "react-router-dom";
+import ProductItem from "../../components/Product/ProductItem";
 
 export default function Shoes() {
-    return (
-        <div style={{height: '100%'}}>
-            <Button type="primary"><Link to="/admin/shoes/add">Add</Link></Button>
-        </div>
-    )
+  const test = [1, 2, 3, 4, 5, 6, 7, 8];
+  return (
+    <Row style={{ height: "100%" }}>
+      <Button type="primary">
+        <Link to="/admin/shoes/add">Add</Link>
+      </Button>
+      <Row gutter={[24,16]} >
+        {test &&
+          test.map((item, index) => <Col span={6} key={index}><ProductItem test={item}  /></Col>)}
+      </Row>
+    </Row>
+  );
 }
