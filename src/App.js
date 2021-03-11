@@ -21,18 +21,19 @@ const App = () => {
 
   return (
     <Router>
-      <Layout style={{ height: "100vh" }}>
-        <SideBar collapsed={collapsed} handleCollapse={handleCollapse} />
+      <Layout style={{ minHeight: "100vh" }}>
+        <CustomHeader collapsed={collapsed} handleCollapse={handleCollapse} />
         <Layout>
-          <CustomHeader collapsed={collapsed} handleCollapse={handleCollapse} />
+        <SideBar collapsed={collapsed} handleCollapse={handleCollapse} />
           <Content>
             <Switch>
               <AdminRoute />
             </Switch>
           </Content>
-          <Footer>Footer</Footer>
         </Layout>
       </Layout>
+          <Footer>Footer</Footer>
+
     </Router>
   );
 };
