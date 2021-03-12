@@ -1,4 +1,4 @@
-import { create } from "./";
+import { Firestore } from "./";
 import { db } from "../../Firebase";
 
 const shoesRef = db.collection("shoes");
@@ -20,7 +20,7 @@ async function createShoes(shoes) {
       message: `Model ${shoes.model} đã tồn tại`,
     };
   } else {
-    const { id } = await create('shoes', shoes)
+    const { id } = await Firestore.create('shoes', shoes)
     return {
       status: "success",
       message: "Tạo thành công",
@@ -29,8 +29,9 @@ async function createShoes(shoes) {
   }
 }
 
-async function getShoesList() {
-  // const shoesData = await shoesRef.orderBy('create  ')
+async function getShoesList(pageSize) {
+  const shoesList = await Firestore.getData("shoes","createdAt", pageSize);
+  return shoesList;
 }
 
 export { createShoes, getShoesList };

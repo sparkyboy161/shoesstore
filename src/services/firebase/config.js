@@ -1,4 +1,5 @@
 import { db } from "../../Firebase";
+import {Firestore} from "./";
 
 const configRef = db.collection("config");
 
@@ -15,14 +16,14 @@ async function createConfig(config) {
         message: `Config ${config.region} bị trùng`,
       };
     } else {
-      await configRef.doc(snapshot.docs[0].id).set(config);
+      await Firestore.update("config", snapshot.docs[0].id, config);
       return {
         status: "success",
         message: "Chỉnh sửa thành công",
       };
     }
   } else {
-    configRef.doc().set(config);
+    await Firestore.create("config", config);
     return {
       status: "success",
       message: "Thành công",
