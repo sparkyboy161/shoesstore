@@ -5,7 +5,10 @@ import "./ProductItem.css";
 
 const { Text } = Typography;
 
-const ProductItem = () => {
+const ProductItem = ({shoes}) => {
+
+  const {name, photos, model} = shoes;
+  const alterPic = 'http://sneakernews.com/wp-content/uploads/2016/09/0901_JordanBreda.jpg';
   return (
     <Card
     className="card__container"
@@ -14,17 +17,18 @@ const ProductItem = () => {
         <img
           alt="example"
           className="image__container"
-          src="http://sneakernews.com/wp-content/uploads/2016/09/0901_JordanBreda.jpg"
+          src={photos && photos[0] ? photos[0] : alterPic}
         />
       }
     >
       <Row>
         <Text style={{ textAlign: "center" }} strong>
-          {"Test"}
+          {name ? name : 'Unknown'}
         </Text>
       </Row>
-      <Row>
-        <Text type="secondary">{`$${500}`}</Text>
+      <Row justify="space-between">
+        <Text >Model: {`${model}`}</Text>
+        <Text type="secondary" >Giá: 500.000 đồng</Text>
       </Row>
     </Card>
   );
