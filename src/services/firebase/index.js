@@ -49,4 +49,71 @@ async function saveImage(object, file, id) {
   );
 }
 
-export { saveImage };
+async function create(collectionName, data) {
+  const res = await db.collection(collectionName).add({
+    ...data,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+  });
+  return res;
+}
+
+async function update(collectionName, docId, data) {
+  const res = await db
+    .collection(collectionName)
+    .doc(docId)
+    .update({
+      ...data,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+  return res;
+}
+
+async function getData(collectionName, field, pageSize) {
+  const res = db.collection(collectionName).orderBy(field).limit(pageSize);
+  const snapshot = await res.get();
+  const data = [];
+  if (!snapshot.empty) {
+    snapshot.forEach((snap) => {
+      data.push(snap.data());
+    });
+  }
+  return data;
+}
+
+async function getNextPage(collectionName, last, field, pageSize) {
+  const res = db.collection(collectionName).orderBy(field).startAfter(last[field]).limit(pageSize);
+  const snapshot = await res.get();
+  const data = [];
+  if (!snapshot.empty) {
+    snapshot.forEach((snap) => {
+      data.push(snap.data());
+    });
+  }
+  return data;
+}
+
+async function getPreviousPage(collectionName, first, field, pageSize) {
+  const res = db.collection(collectionName).orderBy(field).endBefore(first[field]).limitToLast(pageSize);
+  const snapshot = await res.get();
+  const data = [];
+  if (!snapshot.empty) {
+    snapshot.forEach((snap) => {
+      data.push(snap.data());
+    });
+  }
+  return data;
+}
+
+const Firestore = {
+  create,
+  update,
+  getData,
+  getNextPage,
+  getPreviousPage
+};
+
+const Firestorage = {
+  saveImage,
+};
+
+export { Firestore, Firestorage };

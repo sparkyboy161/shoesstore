@@ -5,7 +5,7 @@ import UploadImage from "./UploadImage";
 
 import { TYPE_OF_NIKE, TYPE_OF_ADIDAS } from "../../const/shoes";
 import { createShoes } from "../../services/firebase/shoes";
-import { saveImage } from "../../services/firebase";
+import { Firestorage } from "../../services/firebase";
 import { getBase64 } from "../../utils";
 
 const { Option } = Select;
@@ -59,7 +59,7 @@ const ShoesForm = () => {
       let ctr = 0;
       fileList.forEach(async (file) => {
         let _file = await getBase64(file.originFileObj);
-        await saveImage('shoes', _file, id);
+        await Firestorage.saveImage('shoes', _file, id);
         ctr++;
         if (ctr === fileList.length) {
           message.success({ content: "Up thành công", key: "uploadimage" });
