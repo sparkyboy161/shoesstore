@@ -3,20 +3,20 @@ import { Col, Row, Typography } from "antd";
 
 import ConfigForm from "../../components/Form/ConfigForm";
 
-import "./Config.css";
+import "./Formula.css";
 
 const { Title } = Typography;
 
-export default function Config() {
+export default function Formula() {
   return (
-    <div className={"config__container"}>
-      <Col style={{marginTop: '5%'}}>
+    <div className={"formula__container"}>
+      <Col style={{ marginTop: "5%" }}>
         <Row justify="center">
-          <Title>Config settings</Title>
+          <Title>Formula settings</Title>
         </Row>
       </Col>
       <Col>
-        <Row  justify="center">
+        <Row justify="center">
           <ConfigForm />
         </Row>
       </Col>

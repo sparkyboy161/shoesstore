@@ -17,7 +17,7 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 
-const ConfigForm = () => {
+const FormulaForm = () => {
   const [form] = Form.useForm();
 
   const onRegionChange = async (value) => {

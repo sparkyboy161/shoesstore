@@ -1,8 +1,6 @@
-.config__container {
+.formula__container {
   height: 100%;
   min-height: 100vh;
   min-width: 100%;
   width: 100%;
 }
-
-
