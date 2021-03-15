@@ -25,7 +25,7 @@ const App = () => {
         <CustomHeader collapsed={collapsed} handleCollapse={handleCollapse} />
         <Layout>
         <SideBar collapsed={collapsed} handleCollapse={handleCollapse} />
-          <Content>
+          <Content className="content__container">
             <Switch>
               <AdminRoute />
             </Switch>

@@ -7,20 +7,23 @@ import ProductItem from "../../components/Product/ProductItem";
 import { getShoesList } from "../../services/firebase/shoes";
 
 import "./Shoes.css";
+import Spinner from "../../components/Spinner";
 
 export default function Shoes() {
   const [shoesList, setShoesList] = useState(["1"]);
   const [total] = useState(100);
   const [pageSize, setPageSize] = useState(4);
+  const [loading, setLoading] = useState(false);
 
   useEffect(async () => {
     initializePage();
   }, []);
 
   const initializePage = async () => {
+    setLoading(true);
     const res = await getShoesList(pageSize);
-    console.log("res: ", res);
     setShoesList(res);
+    setLoading(false);
   };
 
   const onShowSizeChange = (_current, _pageSize) => {
@@ -28,7 +31,9 @@ export default function Shoes() {
     setPageSize(_pageSize);
   };
 
-  return (
+  return loading ? (
+    <Spinner />
+  ) : (
     <Row className="product_list__container">
       <Col>
         <Row className="button__container" justify="end">

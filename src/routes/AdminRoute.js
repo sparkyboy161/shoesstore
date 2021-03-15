@@ -8,7 +8,7 @@ import Shoes from '../views/admin/Shoes';
 
 export default function AdminRoute() {
     return (
-        <div>
+        <>
             <Route path="/admin/shoes" exact>
               <Shoes />
             </Route>
@@ -21,7 +21,7 @@ export default function AdminRoute() {
             <Route path="/admin" exact>
               <Home />
             </Route>
-        </div>
+        </>
     )
 }
 
