@@ -1,31 +1,25 @@
-import React , {useEffect} from 'react';
-import { Row, Typography } from 'antd';
+import React from "react";
+import { Col, Row, Typography } from "antd";
 
-import ConfigForm from '../../components/Form/ConfigForm';
+import ConfigForm from "../../components/Form/ConfigForm";
 
-import './Config.css';
-import { getConfigByRegion } from '../../services/firebase/config';
+import "./Config.css";
 
-const {Title} = Typography;
+const { Title } = Typography;
 
 export default function Config() {
-
-    useEffect(()=>{
-        test();
-    },[])
-
-    async function test() {
-        await getConfigByRegion('jp');
-    }
-
-
-
-    return (
-        <div className={"config__container"}>
-            <Row>
-                <Title >Config settings</Title>
-            </Row>
-            <ConfigForm/>
-        </div>
-    )
+  return (
+    <div className={"config__container"}>
+      <Col style={{marginTop: '5%'}}>
+        <Row style={{ width: "100%" }} justify="center">
+          <Title>Config settings</Title>
+        </Row>
+      </Col>
+      <Col className="config--form__container">
+        <Row style={{ width: "100%" }} justify="center">
+          <ConfigForm />
+        </Row>
+      </Col>
+    </div>
+  );
 }
