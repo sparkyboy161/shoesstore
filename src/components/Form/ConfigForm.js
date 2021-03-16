@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, InputNumber, Select, Button, Input, message } from "antd";
+import { Form, InputNumber, Select, Button, message } from "antd";
 
 import { currencyFormatter } from "../../utils";
 import {
@@ -71,7 +71,7 @@ const ConfigForm = () => {
         label="Tỷ giá"
         rules={[{ required: true }]}
       >
-        <Input />
+        <InputNumber />
       </Form.Item>
       <Form.Item name="shipFee" label="Phí ship" rules={[{ required: true }]}>
         <InputNumber formatter={(value) => currencyFormatter(value)} />
