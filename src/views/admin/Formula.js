@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, Row, Typography } from "antd";
 
-import ConfigForm from "../../components/Form/ConfigForm";
+import FormulaForm from "../../components/Form/FormulaForm";
 
 import "./Formula.css";
 
@@ -17,7 +17,7 @@ export default function Formula() {
       </Col>
       <Col>
         <Row justify="center">
-          <ConfigForm />
+          <FormulaForm />
         </Row>
       </Col>
     </div>

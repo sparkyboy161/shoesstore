@@ -1,11 +1,12 @@
-import React from "react";
-import { Form, InputNumber, Select, Button, Input, message } from "antd";
+import React, { useState } from "react";
+import { Form, InputNumber, Select, Statistic } from "antd";
 
-import { currencyFormatter } from "../../utils";
 import {
-  createConfig,
-  getConfigByRegion,
-} from "../../services/firebase/config";
+  calculateBySource,
+  currencyFormatter,
+  getRegionBySource,
+} from "../../utils";
+import { getConfigByRegion } from "../../services/firebase/config";
 
 const { Option } = Select;
 
@@ -13,79 +14,84 @@ const layout = {
   labelCol: { span: 4 },
   wrapperCol: { span: 16 },
 };
-const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
-};
 
 const FormulaForm = () => {
   const [form] = Form.useForm();
+  const [finalPrice, setFinalPrice] = useState(0);
+  const [currentPrice, setCurrentPrice] = useState(0);
 
-  const onRegionChange = async (value) => {
-    const currentConfig = await getConfigByRegion(value);
+  const onSourceChange = async (value) => {
+    const region = getRegionBySource(value);
+    const currentConfig = await getConfigByRegion(region);
     if (currentConfig) {
       form.setFieldsValue({
         exchangeRate: currentConfig.exchangeRate,
         shipFee: currentConfig.shipFee,
       });
+      if (currentPrice !== 0) {
+        console.log("currentPrice: ", currentPrice);
+        calculateFinalPrice(currentPrice);
+      }
     }
   };
 
-  const onReset = () => {
-    form.resetFields();
+  const priceChangeHandle = (value) => {
+    setCurrentPrice(value);
+    calculateFinalPrice(value);
   };
 
-  const onFinish = async (values) => {
-    const key = "createConfig";
-    message.loading({ content: "Đợi tí nào...", key });
-    const res = await createConfig(values);
-    if (res.status === "error") {
-      message.error({ content: res.message, key, duration: 3 });
-    } else {
-      message.success({ content: res.message, key, duration: 3 });
+  const calculateFinalPrice = (value) => {
+    const source = form.getFieldValue("source");
+    const exchangeRate = form.getFieldValue("exchangeRate");
+    const shipFee = form.getFieldValue("shipFee");
+
+    if (source && exchangeRate && shipFee) {
+      const config = { exchangeRate, shipFee };
+      setFinalPrice(calculateBySource(source, config, value));
     }
   };
 
   return (
-    <Form
-      {...layout}
-      form={form}
-      name="control-hooks"
-      onFinish={onFinish}
-      style={{ width: "50%" }}
-    >
-      <Form.Item name="region" label="Khu vực" rules={[{ required: true }]}>
-        <Select
-          placeholder="Select a specific region"
-          onChange={onRegionChange}
-          allowClear
-          rules={[{ required: true }]}
-        >
-          <Option value="jp">{"Nhật Bản"}</Option>
-          <Option value="us">{"Mỹ"}</Option>
-          <Option value="kr">{"Hàn Quốc"}</Option>
-          <Option value="cny">{"Trung Quốc"}</Option>
-        </Select>
-      </Form.Item>
-      <Form.Item
-        name="exchangeRate"
-        label="Tỷ giá"
-        rules={[{ required: true }]}
+    <>
+      <Form
+        {...layout}
+        form={form}
+        name="control-hooks"
+        style={{ width: "50%" }}
       >
-        <Input />
-      </Form.Item>
-      <Form.Item name="shipFee" label="Phí ship" rules={[{ required: true }]}>
-        <InputNumber formatter={(value) => currencyFormatter(value)} />
-      </Form.Item>
-      <Form.Item {...tailLayout} style={{ marginLeft: "9%" }}>
-        <Button type="primary" htmlType="submit" style={{ marginRight: 10 }}>
-          Submit
-        </Button>
-        <Button htmlType="button" onClick={onReset}>
-          Reset
-        </Button>
-      </Form.Item>
-    </Form>
+        <Form.Item name="originalPrice" label="Giá gốc">
+          <InputNumber onChange={priceChangeHandle} />
+        </Form.Item>
+        <Form.Item name="source" label="Khu vực" rules={[{ required: true }]}>
+          <Select
+            placeholder="Select a specific source"
+            onChange={onSourceChange}
+            allowClear
+            rules={[{ required: true }]}
+          >
+            <Option value="monokabu">{"Monokabu"}</Option>
+            <Option value="snkrdunk">{"Snkrdunk"}</Option>
+            <Option value="goat">{"Goat"}</Option>
+            <Option value="kream">{"Kream"}</Option>
+            <Option value="adidas">{"Adidas"}</Option>
+            <Option value="nike">{"Nike"}</Option>
+            <Option value="dewu">{"Dewu"}</Option>
+          </Select>
+        </Form.Item>
+        <Form.Item name="exchangeRate" label="Tỷ giá">
+          <InputNumber disabled={true} />
+        </Form.Item>
+        <Form.Item name="shipFee" label="Phí ship">
+          <InputNumber
+            formatter={(value) => currencyFormatter(value)}
+            disabled={true}
+          />
+        </Form.Item>
+      </Form>
+
+      <Statistic title="Giá tiền Việt" value={finalPrice} />
+    </>
   );
 };
 
-export default ConfigForm;
+export default FormulaForm;

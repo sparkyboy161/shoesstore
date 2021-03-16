@@ -1,3 +1,5 @@
+import { TYPE_OF_SOURCE } from "../const/source";
+
 function currencyFormatter(value) {
   return `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -27,12 +29,14 @@ function calculateBySource(source, config, price) {
     case "nike":
       return price * exchangeRate + shipFee;
     case "dewu":
-      return (price + 6) * exchangeRate + shipFee;
+      return (price + 36) * exchangeRate + shipFee;
     default:
       return 0;
   }
 }
 
+function getRegionBySource(source) {
+  return TYPE_OF_SOURCE.find((item) => item.name === source).region;
+}
 
-
-export { currencyFormatter, getBase64 , calculateBySource};
+export { currencyFormatter, getBase64, calculateBySource, getRegionBySource };
