@@ -27,14 +27,12 @@ export default function Shoes() {
   };
 
   const onShowSizeChange = (_current, _pageSize) => {
-    console.log(_current, _pageSize);
     setPageSize(_pageSize);
   };
 
-  return loading ? (
-    <Spinner />
-  ) : (
-    <Row className="product_list__container">
+  return (loading
+    ? <Spinner />
+    : <Row className="product_list__container">
       <Col>
         <Row className="button__container" justify="end">
           <Button type="primary" size="middle">

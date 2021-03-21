@@ -30,7 +30,7 @@ async function createShoes(shoes) {
 }
 
 async function getShoesList(pageSize) {
-  const shoesList = await Firestore.getData("shoes","createdAt", pageSize);
+  const shoesList = await Firestore.getData("shoes", "createdAt", pageSize);
   return shoesList;
 }
 
