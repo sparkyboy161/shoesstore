@@ -1,4 +1,5 @@
-import firebase, { storage, db } from "../../Firebase";
+import { storage, db } from "../../Firebase";
+import firebase from 'firebase';
 
 async function saveImage(object, file, id) {
   const metadata = {
@@ -50,22 +51,36 @@ async function saveImage(object, file, id) {
 }
 
 async function create(collectionName, data) {
-  const res = await db.collection(collectionName).add({
-    ...data,
-    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-  });
-  return res;
+  try {
+    const res = await db.collection(collectionName).add({
+      ...data,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+    return res;
+  } catch (error) {
+    return {
+      status: 'error'
+    }
+  }
+
 }
 
 async function update(collectionName, docId, data) {
-  const res = await db
-    .collection(collectionName)
-    .doc(docId)
-    .update({
-      ...data,
-      updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-    });
-  return res;
+  try {
+    const res = await db
+      .collection(collectionName)
+      .doc(docId)
+      .update({
+        ...data,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+    return res;
+  } catch (error) {
+    return {
+      status: 'error'
+    }
+  }
+
 }
 
 async function getData(collectionName, field, pageSize) {

@@ -1,24 +1,27 @@
 import firebase from 'firebase';
 import 'firebase/firestore';
-import 'firebase/storage'
+import 'firebase/storage';
+import 'firebase/auth'
 
 const settings = {timestampsInSnapshots: true};
 
 const config = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-    authDomain: "shoesstore-aef08.firebaseapp.com",
-    projectId: "shoesstore-aef08",
-    storageBucket: "shoesstore-aef08.appspot.com",
-    messagingSenderId: "499724989567",
-    appId: "1:499724989567:web:4f4849e7a8c2060c25bb4a",
-    measurementId: "G-PZHHWN545X"
+    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_FIREBASE_APP_ID,
+    measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
-firebase.initializeApp(config);
-firebase.analytics();
 
-firebase.firestore().settings(settings);
+const app = firebase.initializeApp(config);
+app.analytics();
 
-export const db = firebase.firestore();
-export const storage = firebase.storage().ref();
+app.firestore().settings(settings);
 
-export default firebase;
+export const db = app.firestore();
+export const storage = app.storage().ref();
+export const auth = app.auth()
+
+export default app;
